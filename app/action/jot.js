@@ -31,6 +31,7 @@ const jot = (req, res) => {
         article_user_name: "not found",
         article_slug: "",
         story: "見つかりません",
+        site_title: process.env.SITE_TITLE,
       });
 
     } else {
@@ -43,6 +44,7 @@ const jot = (req, res) => {
         article_user_name: obj.user_name,
         article_slug: obj.slug,
         story: obj.story,
+        site_title: process.env.SITE_TITLE,
       });
 
     }

@@ -15,6 +15,7 @@ const article_list = (req, res) => {
       list:obj,
       article_user_id: user_id,
       article_user_name: username,
+      site_title: process.env.SITE_TITLE,
     });
   
 

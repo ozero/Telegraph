@@ -11,7 +11,8 @@ const article_get = (req, res) => {
       console.log(['ERROR:article_get', url, err]);
       res.render('article', {
         article_id: "",
-        title: "404",
+        title: "404 - ",
+        site_title: process.env.SITE_TITLE,
         user_id: c.user_id,
         article_user_id: " - ",
         article_user_name: "not found",
@@ -24,6 +25,7 @@ const article_get = (req, res) => {
       res.render('article', {
         article_id: url,
         title: obj.title,
+        site_title: process.env.SITE_TITLE,
         user_id: c.user_id,
         article_user_id: obj.user_id,
         article_user_name: obj.user_name,

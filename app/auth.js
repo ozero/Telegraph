@@ -2,14 +2,6 @@
 const sha256 = require('sha256');
 const crypto = require('crypto');
 
-/*
-  const user_id = (!cookies.user_id)?"":cookies.user_id;
-  const user_name = (!cookies.user_name)?"":cookies.user_name;
-  const seed = (!cookies.seed)?"":cookies.seed;
-  const login = (!cookies.login)?"":cookies.login;
-  const hash2 = (!cookies.hash2)?"":cookies.hash2;
-*/
-
 const auth = {
 
   //チャレンジ
@@ -71,35 +63,57 @@ module.exports = auth;
 
 /*
 
+# 安全なチラ裏
+
+## 起動
+
+root で `node app.js`
+
+## 識別・認証・認可
+
+セッションストアをブラウザのcookieのみに持たせるのであれば。
+
+### CMS
+
 - CMSが未ログインでアクセスされる
+  - cookieの[hash]を、Cookieの[user_id]と[seed]、それと[salt]から生成した値で検証する
+  - アクセス先の記事名[entry_id]をcookieに入れる
+
 - CMSはログイン画面を提示
-  - アクセス時の[seed]と[salt-1]の.slice(8.16)を元に[saltedhash-1]を生成
-  - bot url
-  - botに渡すコマンド textbox `/login [seed]_[saltedhash-1]`
+  - アクセス時に[seed]を生成
+  - [seed]をcookieに入れる
 
 - TGでbotとの会話画面を開く
-- botにコマンドを投げる `/login [seed]_[saltedhash-1]`
+  - bot url `tg://resolve?domain=ozerobot1_bot&start=6A0NBX`
+  - botに渡すコマンド `/start [seed]`
+
+
+### Bot
+
 - botは以下を判断する
-  - 投げた人間の[user_id]がグループ「関西全体」に居るかどうか
-  - [seed] が現在時刻から前後10分以内かどうか
-  - [saltedhash-1]を、[seed]と[salt-1]から生成した値で検証する
+  - 投げた人間の[user_id]がグループ「（メンバー名簿）」に居るかどうか
 
-- 問題なければ [user_id]と[seed]と[salt-2]を元に[saltedhash-2]を生成
+- 問題なければ [seed]と[salt]を元に[hash]を生成
   - botはログイン用URLを生成して発言
-  - https://www.xm-xm.com:3001/login?[user_id]:[seed]:[saltedhash-2]:[user_name]
+  - https://www.xm-xm.com:3001/auth/[user_id]/[seed]/[hash]/[username]
 
-- CMSは[saltedhash-2]を、[user_id]と[seed]と[salt-2]から生成した値で検証する
+
+### CMS
+
+- CMSは[hash]を、[user_id]と[seed]と[salt]から生成した値で検証する
 
 - 問題なければCOOKIEを発行
-  - login: ok
   - [user_id]
-  - [user_name]
   - [seed]
-  - [saltedhash-2]
+  - [hash]
+  - [username]
+
+- 記事表示ページにリダイレクトする
+  - リダイレクト先の記事名[entry_id]をcookieから取得
+  - cookieから[entry_id]を削除
 
 - 以降、CMSは以下を検証してログイン状態を判断する
-  - [saltedhash-2]を、[user_id]と[seed]と[salt-2]から生成した値で検証する
-  - 正しければ、[user_id]と[user_name]を投稿に使用する
-
+  - cookieの[hash]を、Cookieの[user_id]と[seed]、それと[salt]から生成した値で検証する
+  - 正しければ、[user_id]と[username]を投稿に使用する
 
 */

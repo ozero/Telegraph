@@ -30,11 +30,11 @@ require('./app/controller')(app)
 // Start server
 //app.listen(port, '0.0.0.0')
 const options = {
-  key:  fs.readFileSync('/etc/letsencrypt/live/www.xm-xm.com/privkey.pem'),
-  cert: fs.readFileSync('/etc/letsencrypt/live/www.xm-xm.com/cert.pem')
+  key:  fs.readFileSync(process.env.SSL_KEY),
+  cert: fs.readFileSync(process.env.SSL_CERT)
 };
 const server = https.createServer(options,app);
 server.listen(port);
-console.log('Server is on at https://www.xm-xm.com:' + port)
+console.log(`Server is on at https://${process.env.MYDOMAIN}:${port}` )
 
 

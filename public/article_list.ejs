@@ -1,0 +1,45 @@
+<html>
+
+<head>
+  <%- include('_head') %>
+  <title>
+    List: <%= article_user_id %>:<%= article_user_name %>
+  </title>
+  <style>
+    [data-tiny-editor] {
+      height: 400px;
+    }
+    body {
+      background-color:#f0f0f0;
+    }
+  </style>  
+</head>
+
+<body>
+  <div id="container">
+    List: <%= article_user_id %>:<%= article_user_name %>
+    <hr>
+    <div>
+      <a href="/">新規作成</a>
+    </div>
+    <hr>
+    <ul>
+      <% list.forEach(function (value, key) { %>
+      <li>
+        <span style="font-size: xx-small;">
+          [<%= value.date %>] - 
+          <a href="/<%= value.url %>">
+            [編集]
+          </a>
+        </span><br>
+        <a href="/<%= value.url %>">
+          <%= value.title %>
+        </a>
+      </li>
+      <% }); %>      
+    </ul>
+
+  </div>
+</body>
+
+</html>

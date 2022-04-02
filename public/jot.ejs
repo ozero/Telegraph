@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%- include('_head') %>
+    <title>Edit article - KIEJ Telegraph</title>
+    <style>
+      [data-tiny-editor] {
+        height: 400px;
+      }
+      body {
+        background-color:#f0f0f0;
+      }
+    </style>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+  </head>
+  <body>
+    <div id="container">
+      <form action="/" method="post">
+        <input type="hidden" name="user_id" value="<%= article_user_id %>">
+        <input type="hidden" name="user_name" value="<%= article_user_name %>">
+        <input type="hidden" name="slug" value="<%= article_slug %>">
+        
+        <div>
+          記事のタイトル / 
+          <span class="author">
+            TG user_id: <a href="/list"><%= article_user_id %></a>, user_name: <%= article_user_name %>
+          </span>
+        </div>
+        <input id="title" name="title" value="<%= title %>">
+
+        <div id="story" data-tiny-editor><%- story %></div>
+        <input type="hidden" name="story" id="input_story">
+        <div style="text-align: center;margin-top:0.4em;">
+          <input id="submit" type="submit" formmethod="post" value="この記事を投稿する" class="waves-effect waves-light btn">
+        </div>
+      </form>
+    </div>
+    <script src="https://unpkg.com/tiny-editor/dist/bundle.js"></script>
+    <script>
+      var form = document.querySelector('form');
+      form.onsubmit = function() {
+        // Populate hidden form on submit
+        var story = document.querySelector('input[name=story]');
+        story.value = document.getElementById('story').innerHTML;
+      };
+
+    </script>
+  </body>
+</html>

@@ -1,0 +1,40 @@
+<html>
+
+<head>
+  <%- include('_head') %>
+    <title>Login</title>
+</head>
+
+<body>
+  <div id="container">
+    <h3>Login</h3>
+    <hr>
+
+    <p>&nbsp;</p>
+    <p style="text-align: center;">
+      <a href="tg://resolve?domain=<%= bot %>&start=<%= challenge %>" class="waves-effect waves-light btn">Botでログイン
+      </a>
+    </p>
+    <p>&nbsp;</p>
+    <hr>
+    <p>&nbsp;</p>
+
+    <div class="row">
+      <div class="col s12 m6">
+        <div class="card light-green lighten-3">
+          <div class="card-content black-text">
+            <p>
+              Bot <a href="https://t.me/<%= bot %>">
+                <%= bot %>
+              </a>
+              に、以下のコマンドを入力してログインすることもできます。</p>
+            <input type="text" value="/start <%= challenge %>">
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</body>
+
+</html>

@@ -66,8 +66,9 @@ const controller = (app) => {
       title: "＊＊＊＊のお知らせ",
       article_user_id: c.user_id,
       article_user_name: c.username,
-      story: "<div>＊＊＊＊をやるよ！</div><ul><li>主催：</li><li>日時：</li><li>場所：</li></ul>",
       article_slug: "",
+      story: "<div>＊＊＊＊をやるよ！</div><ul><li>主催：</li><li>日時：</li><li>場所：</li></ul>",
+      site_title: process.env.SITE_TITLE  
     });
   });
 
